@@ -633,17 +633,183 @@
         .price-change.up { color: var(--success); }
         .price-change.down { color: var(--danger); }
 
+        /* ANIMATIONS */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(127,227,192,0.3); }
+            50% { box-shadow: 0 0 30px rgba(127,227,192,0.6), 0 0 40px rgba(127,227,192,0.4); }
+        }
+
+        .credits .card:hover {
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background: var(--dark-card);
+            border: 1px solid var(--brand-teal);
+            border-radius: 50%;
+            color: var(--brand-mint);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: var(--shadow-glow);
+            transition: var(--transition);
+        }
+
+        .mobile-menu-toggle:hover {
+            background: var(--brand-teal);
+            color: var(--text-white);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 99;
+            backdrop-filter: blur(4px);
+        }
+
         /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .grid-4 { grid-template-columns: repeat(3, 1fr); }
+            .main-content { padding: 24px 32px; }
+            .search-box input { width: 200px; }
+            .search-box input:focus { width: 240px; }
+        }
+
         @media (max-width: 1024px) {
-            .sidebar { width: 240px; }
-            .main-content { margin-left: 240px; padding: 24px 32px; }
+            .sidebar { width: 260px; }
+            .main-content { margin-left: 260px; padding: 24px 28px; }
             .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .header-title h1 { font-size: 28px; }
+            .search-box input { width: 180px; }
         }
 
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .main-content { margin-left: 0; padding: 20px; }
+            .mobile-menu-toggle { display: grid; place-items: center; }
+            .sidebar-overlay.active { display: block; }
+            
+            .sidebar { 
+                transform: translateX(-100%); 
+                width: 280px;
+                transition: transform 0.3s ease;
+                z-index: 100;
+            }
+            
+            .sidebar.active { transform: translateX(0); }
+            
+            .main-content { 
+                margin-left: 0; 
+                padding: 80px 20px 20px 20px; 
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+                margin-bottom: 32px;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-box input {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .search-box input:focus { width: 100%; max-width: 280px; }
+            
             .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            
+            .game-stats { grid-template-columns: repeat(2, 1fr); }
+            .market-grid { grid-template-columns: 1fr; }
+            
+            .header-title h1 { font-size: 24px; }
+            .header-title p { font-size: 14px; }
+            
+            .card { padding: 20px; }
+            .project-content { padding: 20px; }
+            
+            .logo-text { font-size: 20px; }
+            .nav-link { font-size: 14px; padding: 12px 14px; }
+            
+            .chart-container { height: 220px; }
+        }
+
+        @media (max-width: 480px) {
+            .main-content { padding: 70px 16px 16px 16px; }
+            
+            .header-title h1 { font-size: 22px; }
+            .stat-value { font-size: 28px; }
+            .stat-icon { width: 48px; height: 48px; font-size: 24px; }
+            
+            .game-stats { 
+                grid-template-columns: 1fr; 
+                gap: 12px;
+            }
+            
+            .game-stat-item { padding: 12px; }
+            .game-stat-value { font-size: 20px; }
+            
+            .card { padding: 16px; margin-bottom: 20px; }
+            .project-content { padding: 16px; }
+            
+            .project-image { height: 160px; }
+            
+            .btn { padding: 10px 20px; font-size: 14px; }
+            .btn-primary { padding: 12px 24px; }
+            
+            .sidebar { width: 260px; padding: 24px 20px; }
+            .logo { margin-bottom: 32px; }
+            
+            .market-item { padding: 16px; }
+            .market-price { font-size: 18px; }
+            
+            .chart-container { height: 180px; padding: 20px 12px; }
+            
+            .project-stats { grid-template-columns: 1fr; gap: 12px; }
+            
+            .user-card { padding: 10px; }
+            .user-avatar { width: 36px; height: 36px; }
+            .user-info h4 { font-size: 13px; }
+            .user-info p { font-size: 11px; }
+        }
+
+        @media (max-width: 360px) {
+            .main-content { padding: 60px 12px 12px 12px; }
+            .card { padding: 14px; }
+            .header-title h1 { font-size: 20px; }
+            .stat-value { font-size: 24px; }
+            
+            .mobile-menu-toggle {
+                width: 44px;
+                height: 44px;
+                top: 16px;
+                left: 16px;
+                font-size: 20px;
+            }
+            
+            .sidebar { width: 240px; }
         }
     </style>
 </head>
@@ -699,6 +865,12 @@
                         <span>Join Field Team</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="credits">
+                        <i class='bx bxs-graduation'></i>
+                        <span>Project Credits</span>
+                    </a>
+                </li>
             </ul>
 
             <div class="sidebar-footer">
@@ -714,6 +886,14 @@
         </aside>
 
         <!-- MAIN CONTENT -->
+        <!-- MOBILE MENU TOGGLE -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class='bx bx-menu'></i>
+        </button>
+        
+        <!-- SIDEBAR OVERLAY -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
         <main class="main-content">
             <header class="header">
                 <div class="header-title">
@@ -1485,6 +1665,147 @@
                 </div>
             </section>
 
+            <!-- CREDITS SECTION -->
+            <section class="section" id="credits">
+                <div class="card" style="text-align: center; margin-bottom: 40px; background: linear-gradient(135deg, var(--brand-pine), var(--brand-teal)); border: 2px solid var(--brand-mint); overflow: hidden; position: relative;">
+                    <div style="position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(127,227,192,0.1) 0%, transparent 70%); pointer-events: none;"></div>
+                    <div style="position: relative; z-index: 2; padding: 48px 32px;">
+                        <div style="font-size: 64px; margin-bottom: 24px; animation: bounce 2s infinite;">🌱</div>
+                        <h2 style="font-family: var(--font-display); font-size: 36px; color: var(--brand-lime); margin-bottom: 16px; text-shadow: 0 0 20px rgba(127,227,192,0.5);">Social Entrepreneurship Project</h2>
+                        <div style="display: inline-block; padding: 8px 24px; background: rgba(127,227,192,0.2); border-radius: 20px; margin-bottom: 32px;">
+                            <span style="font-size: 18px; font-weight: 600; color: var(--text-white);">AgriVex Platform</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, var(--dark-card), var(--dark-navy)); border: 1px solid var(--brand-teal); margin-bottom: 32px;">
+                    <h3 style="font-size: 22px; color: var(--brand-mint); margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+                        <i class='bx bxs-user-voice' style="font-size: 28px;"></i>
+                        Course Instructor
+                    </h3>
+                    
+                    <div class="grid grid-2" style="gap: 20px;">
+                        <div style="padding: 24px; background: var(--dark-navy); border-radius: var(--radius-md); border: 1px solid rgba(127,227,192,0.2);">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--info), var(--brand-mint)); border-radius: var(--radius-md); display: grid; place-items: center;">
+                                    <i class='bx bxs-user-voice' style="font-size: 36px; color: var(--dark-slate);"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 20px; font-weight: 700; color: var(--text-white); margin-bottom: 4px;">Sara Khawar</h4>
+                                    <p style="font-size: 15px; color: var(--text-gray);">Social Entrepreneurship Course Instructor</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="padding: 24px; background: var(--dark-navy); border-radius: var(--radius-md); border: 1px solid rgba(127,227,192,0.2);">
+                            <div style="display: flex; align-items: start; gap: 16px;">
+                                <div style="width: 56px; height: 56px; background: linear-gradient(135deg, var(--warning), var(--brand-lime)); border-radius: var(--radius-md); display: grid; place-items: center;">
+                                    <i class='bx bxs-graduation' style="font-size: 32px; color: var(--dark-slate);"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h4 style="font-size: 18px; font-weight: 700; color: var(--text-white); margin-bottom: 8px;">SolBridge International School of Business</h4>
+                                    <p style="font-size: 14px; color: var(--text-gray); margin-bottom: 12px;">128 Uam-ro, Dong-gu, Daejeon, South Korea</p>
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                        <i class='bx bxs-phone' style="color: var(--brand-mint); font-size: 16px;"></i>
+                                        <span style="font-size: 14px; color: var(--text-white);">042-630-8800</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                        <i class='bx bxs-star' style="color: var(--warning); font-size: 16px;"></i>
+                                        <span style="font-size: 14px; color: var(--text-white);">4.4 Rating (98 Google Reviews)</span>
+                                    </div>
+                                    <a href="https://www.solbridge.ac.kr/" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--brand-teal); color: var(--text-white); border-radius: var(--radius-sm); text-decoration: none; font-size: 14px; font-weight: 600; transition: var(--transition);">
+                                        <i class='bx bx-link-external'></i>
+                                        Visit Website
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, var(--dark-card), var(--dark-navy)); border: 1px solid var(--brand-teal); margin-bottom: 40px;">
+                    <h3 style="font-size: 22px; color: var(--brand-mint); margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+                        <i class='bx bxs-group' style="font-size: 28px;"></i>
+                        Project Team Members
+                    </h3>
+                    
+                    <div class="grid grid-3" style="gap: 20px;">
+                        <div style="padding: 20px; background: var(--dark-navy); border-radius: var(--radius-md); text-align: center; border: 1px solid var(--dark-border); height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-white); margin-bottom: 6px;">Alhamdi Muhammad Rafi</h4>
+                            <p style="font-size: 14px; color: var(--text-gray);">202508247</p>
+                        </div>
+
+                        <div style="padding: 20px; background: var(--dark-navy); border-radius: var(--radius-md); text-align: center; border: 1px solid var(--dark-border); height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-white); margin-bottom: 6px;">Abdillah Nurchayati Amalia</h4>
+                            <p style="font-size: 14px; color: var(--text-gray);">202508238</p>
+                        </div>
+
+                        <div style="padding: 20px; background: var(--dark-navy); border-radius: var(--radius-md); text-align: center; border: 1px solid var(--dark-border); height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-white); margin-bottom: 6px;">Georgius Rafael Kharismantik</h4>
+                            <p style="font-size: 14px; color: var(--text-gray);">202508243</p>
+                        </div>
+
+                        <div style="padding: 20px; background: var(--dark-navy); border-radius: var(--radius-md); text-align: center; border: 1px solid var(--dark-border); height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-white); margin-bottom: 6px;">Puntara Rafif Huda</h4>
+                            <p style="font-size: 14px; color: var(--text-gray);">202508239</p>
+                        </div>
+
+                        <div style="padding: 20px; background: var(--dark-navy); border-radius: var(--radius-md); text-align: center; border: 1px solid var(--dark-border); height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-white); margin-bottom: 6px;">Riyandi Muhammad Ramadhan</h4>
+                            <p style="font-size: 14px; color: var(--text-gray);">202508241</p>
+                        </div>
+
+                        <div style="padding: 32px 20px; background: linear-gradient(135deg, rgba(127,227,192,0.1), rgba(127,227,192,0.05)); border-radius: var(--radius-md); text-align: center; border: 2px dashed var(--brand-mint); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+                            <i class='bx bxs-user-plus' style="font-size: 40px; color: var(--brand-mint);"></i>
+                            <h4 style="font-size: 15px; font-weight: 700; color: var(--brand-mint); margin-bottom: 0;">Want to join our team<br>to build this platform?</h4>
+                            <button class="btn btn-primary" style="padding: 10px 20px; font-size: 14px;">
+                                <i class='bx bxs-rocket'></i>
+                                Join Team
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, var(--dark-slate), var(--brand-pine)); border: 2px solid var(--brand-mint); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://images.unsplash.com/photo-1560493676-04071c5f467b?w=1200&q=80&auto=format&fit=crop') center/cover; opacity: 0.5;"></div>
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(10,22,40,0.7), rgba(13,73,64,0.7));"></div>
+                    <div style="position: relative; z-index: 2; padding: 32px;">
+                        <h3 style="font-size: 24px; color: var(--brand-lime); margin-bottom: 24px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                            <i class='bx bxs-bulb' style="font-size: 32px;"></i>
+                            Project Vision & Impact
+                        </h3>
+                        
+                        <div class="grid grid-3" style="gap: 24px;">
+                            <div style="text-align: center; padding: 24px; background: rgba(10,22,40,0.8); border-radius: var(--radius-lg); border: 1px solid rgba(127,227,192,0.3);">
+                                <div style="font-size: 48px; margin-bottom: 16px;">🌾</div>
+                                <h4 style="font-size: 18px; font-weight: 700; color: var(--text-white); margin-bottom: 12px;">Agricultural Innovation</h4>
+                                <p style="font-size: 14px; color: var(--text-gray);">Bridging technology with traditional farming to create sustainable investment opportunities.</p>
+                            </div>
+
+                            <div style="text-align: center; padding: 24px; background: rgba(10,22,40,0.8); border-radius: var(--radius-lg); border: 1px solid rgba(127,227,192,0.3);">
+                                <div style="font-size: 48px; margin-bottom: 16px;">💡</div>
+                                <h4 style="font-size: 18px; font-weight: 700; color: var(--text-white); margin-bottom: 12px;">Social Impact</h4>
+                                <p style="font-size: 14px; color: var(--text-gray);">Empowering Indonesian farmers while providing meaningful returns to global investors.</p>
+                            </div>
+
+                            <div style="text-align: center; padding: 24px; background: rgba(10,22,40,0.8); border-radius: var(--radius-lg); border: 1px solid rgba(127,227,192,0.3);">
+                                <div style="font-size: 48px; margin-bottom: 16px;">🚀</div>
+                                <h4 style="font-size: 18px; font-weight: 700; color: var(--text-white); margin-bottom: 12px;">Future Ready</h4>
+                                <p style="font-size: 14px; color: var(--text-gray);">Building the next generation of agricultural investment platforms with real-world data.</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 32px;">
+                            <div style="display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, var(--brand-teal), var(--brand-mint)); border-radius: var(--radius-full); box-shadow: var(--shadow-glow);">
+                                <span style="font-size: 16px; font-weight: 700; color: var(--dark-slate);">
+                                    © 2025 AgriVex Team - SolBridge International School of Business
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- GLOBAL IMPACT SECTION -->
             <section class="section" id="global">
                 <div class="grid grid-2" style="margin-bottom: 32px;">
@@ -1597,7 +1918,8 @@
             'projects': ['Live Projects', 'Discover high-impact agricultural ventures'],
             'rewards': ['Rewards Hub', 'Claim exclusive benefits & recognition'],
             'global': ['Global Impact', 'Your contribution to Indonesia\'s agriculture'],
-            'fieldteam': ['Join Field Team', 'Become a certified agricultural field agent']
+            'fieldteam': ['Join Field Team', 'Become a certified agricultural field agent'],
+            'credits': ['Project Credits', 'Meet our development team & academic partners']
         };
 
         navLinks.forEach(link => {
@@ -1654,6 +1976,49 @@
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
+        });
+
+        // MOBILE MENU FUNCTIONALITY
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+            
+            const icon = mobileMenuToggle.querySelector('i');
+            if (sidebar.classList.contains('active')) {
+                icon.className = 'bx bx-x';
+            } else {
+                icon.className = 'bx bx-menu';
+            }
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            mobileMenuToggle.querySelector('i').className = 'bx bx-menu';
+        });
+
+        // Close sidebar when clicking nav links on mobile
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    mobileMenuToggle.querySelector('i').className = 'bx bx-menu';
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                mobileMenuToggle.querySelector('i').className = 'bx bx-menu';
+            }
         });
 
         console.log('%c🌱 AgriVex Elite Platform', 'color: #7FE3C0; font-size: 18px; font-weight: bold;');
